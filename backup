@@ -1,0 +1,19 @@
+
+        //Realtime Database Setup
+        const [isLoading, setIsLoading] = useState(true)
+        const [snapshot, setSnapshot] = useState(false);
+        const error = useRef(null)
+
+        const getValue = async () => {
+            const database = getDatabase(firebaseApp)
+            const rootReference = ref(database)
+            const dbGet = await get(child(rootReference, 'terbang'))
+            const dbValue = dbGet.val()
+            setSnapshot([dbValue]);
+
+            setIsLoading(false)
+        }
+
+        useEffect(()=>{
+            getValue()
+        },[])
